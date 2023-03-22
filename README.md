@@ -9,7 +9,36 @@
 ## Prerequisites
 
 * Docker token for private registry
-* Ensure that a $PRIVATE_BUCKET has been created and an IAM role with read, list, and write access has been assigned.
+* Ensure that a $PRIVATE_BUCKET has been created and an IAM role with the following permissions assigned.
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowIAMRoleToManageBucket",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::${ACCOUNT_ID}:role/${IAM_ROLE}"
+            },
+            "Action": [
+                "s3:HeadBucket",
+                "s3:ListBucket",
+                "s3:PutObjectAcl",
+                "s3:PutObject",
+                "s3:GetObjectAcl",
+                "s3:GetObject",
+                "s3:CreateMultipartUpload",
+                "s3:AbortMultipartUpload",
+                "s3:ListMultipartUploadParts"
+            ],
+            "Resource": [
+                "arn:aws:s3:::${PRIVATE_BUCKET}",
+                "arn:aws:s3:::${PRIVATE_BUCKET}/*"
+            ]
+        }
+    ]
+}
+```
 
 ## Quick Start
 

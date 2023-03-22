@@ -2,6 +2,13 @@ command_present() {
   type "$1" >/dev/null 2>&1
 }
 
+if ! command_present doppler; then
+  echo "Doppler is not installed. Installing now..."
+else
+  echo "Doppler is already installed. Skipping installation."
+  exit 0
+fi
+
 if ! command_present apt-get && command_present yum; then
   sudo chmod 777 /etc/yum.repos.d
   sudo touch /etc/yum.repos.d/doppler-cli.repo
