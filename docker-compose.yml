@@ -1,0 +1,125 @@
+version: "3"
+services:
+  frontend:
+    image: secoda/on-premise-frontend:6
+    container_name: frontend
+    restart: always
+    ports:
+      - 443:443
+    environment:
+      - PUBLIC_KEY
+      - API_TLS_CONFIG_BASE64=
+      - API_ENDPOINT=api
+      - API_PORT=5007
+      - API_PROTOCOL=http
+      - NODE_ENDPOINT=127.0.0.1
+      - FRONTEND_ENDPOINT=127.0.0.1
+    networks:
+      - secodanet
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:5006/healthcheck/"]
+      interval: 15s
+      timeout: 15s
+      retries: 5
+      start_period: 30s
+    depends_on:
+      api:
+        condition: service_healthy
+
+  api:
+    image: secoda/on-premise-api:6
+    container_name: api
+    restart: always
+    ports:
+      - 5007:5007
+    networks:
+      - secodanet
+    environment:
+      - VITE_NEW_AUTH
+      - APISERVICE_SECRET
+      - PUBLIC_KEY
+      - PRIVATE_KEY
+      - PRIVATE_BUCKET
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - APISERVICE_DATABASE_CONNECTION
+      - REDIS_URL=redis://redis:6379
+    mem_limit: 8gb
+    cpu_percent: 50
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:5007/healthcheck/"]
+      interval: 15s
+      timeout: 15s
+      retries: 10
+      start_period: 180s
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+
+  redis:
+    image: redis:6.2
+    restart: always
+    container_name: redis
+    command: ["redis-server", "--appendonly", "yes"]
+    hostname: redis
+    ports:
+      - 6379:6379
+    networks:
+      - secodanet
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  postgres:
+    image: postgres:14.7
+    restart: always
+    ports:
+      - 5432:5432
+    container_name: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=secoda
+      - POSTGRES_USER=secoda
+      - POSTGRES_PASSWORD
+    networks:
+      - secodanet
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  elasticsearch:
+    image: elasticsearch:7.10.1
+    restart: always
+    container_name: elasticsearch
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    environment:
+      - discovery.type=single-node
+    networks:
+      - secodanet
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:9200/_cluster/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+networks:
+  secodanet:
+
+volumes:
+  postgres_data:
+    driver: local
+  elasticsearch_data:
+    driver: local
