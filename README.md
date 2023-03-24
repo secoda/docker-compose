@@ -6,9 +6,14 @@
 * Docker >= 20.10.7
 * Docker-compose >= 1.29.2
 
+## Minimum specifications
+
+* 4 vCPU
+* 16 GB RAM
+
 ## Prerequisites
 
-* Docker token for private registry
+* Docker token for the Secoda private registry (supplied by Secoda).
 * Ensure that a $PRIVATE_BUCKET has been created and an IAM role with the following permissions assigned.
 ```json
 {
@@ -17,9 +22,6 @@
         {
             "Sid": "AllowIAMRoleToManageBucket",
             "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::${ACCOUNT_ID}:role/${IAM_ROLE}"
-            },
             "Action": [
                 "s3:HeadBucket",
                 "s3:ListBucket",

@@ -17,7 +17,6 @@ if ! command_present apt-get && command_present yum; then
   sudo usermod -a -G docker [user]
 else
   wget -qO- https://get.docker.com/ | sh
-  sudo groupadd docker
   sudo usermod -aG docker $USER
   newgrp docker
 fi
