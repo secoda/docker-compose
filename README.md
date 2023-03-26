@@ -12,8 +12,10 @@
 * 16 GB RAM
 
 ## Prerequisites
-
+**Mandatory**
 * Docker token for the Secoda private registry (supplied by Secoda).
+
+**Optional**
 * Ensure that a $PRIVATE_BUCKET has been created and an IAM role with the following permissions assigned.
 ```json
 {
