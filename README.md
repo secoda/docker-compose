@@ -49,5 +49,3 @@
 ```bash
 ./quick-start.sh
 ```
-
-[Additional documentation](https://www.notion.so/secoda/On-Prem-Deployment-bfc6e9c1f9f649349d8fb2722928dd6c)
