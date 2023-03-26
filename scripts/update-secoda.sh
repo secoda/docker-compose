@@ -13,7 +13,7 @@ cd $PARENT_DIRECTORY
 docker login -u secodaonpremise --password $DOCKER_TOKEN
 
 docker-compose stop frontend api
-docker rm $(docker ps -aq)
+docker rm frontend api
 docker-compose pull
 
 echo "Please wait... This may take a few minutes."

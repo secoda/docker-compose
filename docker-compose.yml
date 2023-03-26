@@ -6,6 +6,7 @@ services:
     restart: always
     ports:
       - 443:443
+      - 80:80
     environment:
       - PUBLIC_KEY
       - API_TLS_CONFIG_BASE64=

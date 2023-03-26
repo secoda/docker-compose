@@ -34,36 +34,44 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-# Ask if they would like to setup an S3 bucket for backups, and if so, for their access keys:
-echo "What is the name of your S3 bucket?"
-read -r BUCKET
+# Ask if they would like to setup an S3 bucket
+echo "Would you like to setup an S3 bucket? (Y/n)"
+read -r SETUP_S3
 
-echo "What is your S3 access key?"
-read -r ACCESS_KEY
+if [ "$SETUP_S3" != "n" ]; then
+  echo "What is the name of your S3 bucket?"
+  read -r BUCKET
 
-echo "What is your S3 secret key?"
-read -r SECRET_KEY
+  # Ask if they would like to setup an S3 bucket for backups, and if so, for their access keys:
+  echo "What is the name of your S3 bucket?"
+  read -r BUCKET
 
-# Test the AWS credentials for the S3 bucket:
-echo "Testing AWS credentials..."
-# Test putting a file in the bucket:
-echo "Testing AWS credentials by putting a file in the bucket..."
-echo "This is a test file." > test.txt
-AWS_ACCESS_KEY_ID=$ACCESS_KEY AWS_SECRET_ACCESS_KEY=$SECRET_KEY aws s3 cp test.txt s3://$BUCKET/test.txt
+  echo "What is your S3 access key?"
+  read -r ACCESS_KEY
 
-# Confirm last command was successful:
-if [ $? -ne 0 ]; then
-  echo "AWS credentials are invalid. Please try again."
-  exit 1
-fi
+  echo "What is your S3 secret key?"
+  read -r SECRET_KEY
 
-rm test.txt
+  # Test the AWS credentials for the S3 bucket:
+  echo "Testing AWS credentials..."
+  # Test putting a file in the bucket:
+  echo "Testing AWS credentials by putting a file in the bucket..."
+  echo "This is a test file." > test.txt
+  AWS_ACCESS_KEY_ID=$ACCESS_KEY AWS_SECRET_ACCESS_KEY=$SECRET_KEY aws s3 cp test.txt s3://$BUCKET/test.txt
 
-echo "Setting cron job to run backups every day at 3am."
-echo "Ensure your backups are working properly by manual confirmation tomorrow."
+  # Confirm last command was successful:
+  if [ $? -ne 0 ]; then
+    echo "AWS credentials are invalid. Please try again."
+    exit 1
+  fi
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-echo "0 3 * * * /bin/bash $DIR/scripts/backup.sh" | sudo tee -a /etc/crontab
+  rm test.txt
+
+  echo "Setting cron job to run backups every day at 3am."
+  echo "Ensure your backups are working properly by manual confirmation tomorrow."
+
+  DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+  echo "0 3 * * * /bin/bash $DIR/scripts/backup.sh" | sudo tee -a /etc/crontab
 
 export DOCKER_TOKEN
 export BUCKET
