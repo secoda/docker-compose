@@ -72,6 +72,7 @@ if [ "$SETUP_S3" != "n" ]; then
 
   DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
   echo "0 3 * * * /bin/bash $DIR/scripts/backup.sh" | sudo tee -a /etc/crontab
+fi
 
 export DOCKER_TOKEN
 export BUCKET
