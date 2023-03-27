@@ -18,8 +18,8 @@ fi
 
 FILE=$(mktemp)
 openssl genrsa 2048 > "$FILE"
-export PUBLIC_KEY=$(openssl rsa -pubout -in $FILE | base64)
-export PRIVATE_KEY=$(cat $FILE | base64)
+export PUBLIC_KEY=$(openssl rsa -pubout -in $FILE | base64 | tr -d \\n)
+export PRIVATE_KEY=$(cat $FILE | base64 | tr -d \\n)
 export SECRET=$(openssl rand -hex 20 | cut -c 1-32)
 export PASSWORD=$(openssl rand -hex 20 | cut -c 1-16)
 
