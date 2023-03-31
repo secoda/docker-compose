@@ -1,8 +1,13 @@
 version: "3"
 services:
   frontend:
-    image: secoda/on-premise-frontend:6.2.6
+    image: secoda/on-premise-frontend:6
     container_name: frontend
+    # To use a custom certificate, uncomment the following lines and
+    # replace the paths with the paths to your X509 certificate and
+    # private key, in PEM format.
+    #   - ./on-premise.key:/app/certs/on-premise.key
+    #   - ./on-premise.crt:/app/certs/on-premise.crt
     restart: always
     ports:
       - 443:443
@@ -28,7 +33,7 @@ services:
         condition: service_healthy
 
   api:
-    image: secoda/on-premise-api:6.2.6
+    image: secoda/on-premise-api:6
     container_name: api
     restart: always
     ports:
