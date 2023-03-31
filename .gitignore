@@ -2,3 +2,6 @@
 .env.2
 
 .DS_Store
+
+on-premise.key
+on-premise.crt
