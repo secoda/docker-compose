@@ -56,6 +56,13 @@ Add the following to the docker-compose directory:
 * on-premise.crt - the X509 certificate file in PEM format
 * on-premise.key - the private key file in PEM format
 
+Then uncomment the following lines in the docker-compose.yml file:
+```yaml
+#    volumes:
+#      - ./on-premise.crt:/etc/ssl/certs/on-premise.crt
+#      - ./on-premise.key:/etc/ssl/private/on-premise.key
+```
+
 ## Quick Start
 
 ```bash
