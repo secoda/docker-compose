@@ -6,6 +6,7 @@ services:
     # To use a custom certificate, uncomment the following lines and
     # replace the paths with the paths to your X509 certificate and
     # private key, in PEM format.
+    # volumes:
     #   - ./on-premise.key:/app/certs/on-premise.key
     #   - ./on-premise.crt:/app/certs/on-premise.crt
     restart: always
