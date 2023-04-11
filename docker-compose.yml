@@ -51,6 +51,9 @@ services:
       - AWS_SECRET_ACCESS_KEY
       - APISERVICE_DATABASE_CONNECTION
       - REDIS_URL=redis://redis:6379
+      - ES_HOST=http://elasticsearch
+      - ES_USERNAME
+      - ES_PASSWORD
     mem_limit: 8gb
     cpu_percent: 50
     healthcheck:
@@ -110,7 +113,7 @@ services:
     restart: always
     container_name: elasticsearch
     volumes:
-      - elasticsearch_data:/usr/share/elasticsearch/data
+      - es_data:/usr/share/elasticsearch/data
     environment:
       - discovery.type=single-node
     networks:
@@ -128,5 +131,5 @@ networks:
 volumes:
   postgres_data:
     driver: local
-  elasticsearch_data:
+  es_data:
     driver: local
