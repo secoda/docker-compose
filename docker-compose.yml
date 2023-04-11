@@ -51,7 +51,7 @@ services:
       - AWS_SECRET_ACCESS_KEY
       - APISERVICE_DATABASE_CONNECTION
       - REDIS_URL=redis://redis:6379
-      - ES_HOST=elasticsearch
+      - ES_HOST=http://elasticsearch
       - ES_USERNAME
       - ES_PASSWORD
     mem_limit: 8gb
