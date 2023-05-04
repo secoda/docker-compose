@@ -109,17 +109,21 @@ services:
       start_period: 5s
 
   elasticsearch:
-    image: elasticsearch:7.10.1
+    image: opensearchproject/opensearch:2.6.0
     restart: always
     container_name: elasticsearch
     volumes:
       - es_data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
     environment:
+      - plugins.security.disabled=true
       - discovery.type=single-node
-    networks:
-      - secodanet
+      - ES_JAVA_OPTS=-Xms512m -Xmx4096m
+      - DISABLE_INSTALL_DEMO_CONFIG=true
+      - NETWORK_HOST=0.0.0.0
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:9200/_cluster/health"]
+      test: ['CMD', 'curl', '-f', 'http://localhost:9200']
       interval: 5s
       timeout: 5s
       retries: 5
