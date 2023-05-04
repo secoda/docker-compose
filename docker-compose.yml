@@ -113,7 +113,7 @@ services:
     restart: always
     container_name: elasticsearch
     volumes:
-      - es_data:/usr/share/elasticsearch/data
+      - elasticsearch_data:/usr/share/opensearch/data
     ports:
       - 9200:9200
     environment:
@@ -135,5 +135,5 @@ networks:
 volumes:
   postgres_data:
     driver: local
-  es_data:
+  elasticsearch_data:
     driver: local
