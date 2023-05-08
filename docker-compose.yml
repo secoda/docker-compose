@@ -112,6 +112,7 @@ services:
     image: opensearchproject/opensearch:2.6.0
     restart: always
     container_name: elasticsearch
+    hostname: elasticsearch
     volumes:
       - elasticsearch_data:/usr/share/opensearch/data
     ports:
@@ -128,6 +129,8 @@ services:
       timeout: 5s
       retries: 5
       start_period: 5s
+    networks:
+      - secodanet
 
 networks:
   secodanet:
