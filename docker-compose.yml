@@ -1,7 +1,7 @@
 version: "3"
 services:
   frontend:
-    image: secoda/on-premise-frontend:6
+    image: secoda/on-premise-frontend:7
     container_name: frontend
     # To use a custom certificate, uncomment the following lines and
     # replace the paths with the paths to your X509 certificate and
@@ -34,7 +34,7 @@ services:
         condition: service_healthy
 
   api:
-    image: secoda/on-premise-api:6
+    image: secoda/on-premise-api:7
     container_name: api
     restart: always
     ports:
@@ -123,7 +123,7 @@ services:
       - DISABLE_INSTALL_DEMO_CONFIG=true
       - NETWORK_HOST=0.0.0.0
     healthcheck:
-      test: ['CMD', 'curl', '-f', 'http://localhost:9200']
+      test: ["CMD", "curl", "-f", "http://localhost:9200"]
       interval: 5s
       timeout: 5s
       retries: 5
