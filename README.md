@@ -1,24 +1,22 @@
 # Docker Compose
 
-## OS Requirements
+```bash
+./quick-start.sh
+```
 
+## Prerequisites
+### Required
+* Docker token for the Secoda private registry (supplied by Secoda).
 * Ubuntu >= 20.04
 * Docker >= 20.10.7
 * Docker-compose >= 1.29.2
-
-## Minimum Specifications
-
 * 4 vCPU
 * 16 GB RAM
+* 32 GB disk space
 
-## Prerequisites
-### Mandatory Prerequisites
-* Docker token for the Secoda private registry (supplied by Secoda).
+### Optional
 
-### Optional Prerequisites
-#### Optional Bucket
-
-* Ensure that a $PRIVATE_BUCKET has been created and an IAM role with the following permissions assigned.
+* A $PRIVATE_BUCKET has been created and an IAM role with the following permissions assigned.
 ```json
 {
     "Version": "2012-10-17",
@@ -61,10 +59,4 @@ Then uncomment the following lines in the docker-compose.yml file:
 #    volumes:
 #      - ./on-premise.crt:/etc/ssl/certs/on-premise.crt
 #      - ./on-premise.key:/etc/ssl/private/on-premise.key
-```
-
-## Quick Start
-
-```bash
-./quick-start.sh
 ```
