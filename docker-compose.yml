@@ -69,6 +69,10 @@ services:
         condition: service_healthy
       elasticsearch:
         condition: service_healthy
+    ulimits:
+      core:
+        hard: 0
+        soft: 0
 
   redis:
     image: redis:6.2
