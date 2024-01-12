@@ -23,7 +23,7 @@ export PRIVATE_KEY=$(cat $FILE | base64 | tr -d \\n)
 export SECRET=$(openssl rand -hex 20 | cut -c 1-32)
 export PASSWORD=$(openssl rand -hex 20 | cut -c 1-16)
 
-echo "What is your docker token supplied Secoda?"
+echo "What is your docker token supplied by Secoda?"
 read -r DOCKER_TOKEN
 
 docker login -u secodaonpremise --password $DOCKER_TOKEN
