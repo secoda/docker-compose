@@ -54,8 +54,6 @@ services:
       - ES_HOST=http://elasticsearch
       - ES_USERNAME
       - ES_PASSWORD
-    mem_limit: 8gb
-    cpu_percent: 50
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:5007/healthcheck/"]
       interval: 15s
