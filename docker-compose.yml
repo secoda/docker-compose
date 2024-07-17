@@ -73,7 +73,7 @@ services:
         soft: 0
 
   redis:
-    image: redis:6.2
+    image: redis:6.2.14
     restart: always
     container_name: redis
     command: ["redis-server", "--appendonly", "yes"]
@@ -90,7 +90,7 @@ services:
       start_period: 5s
 
   postgres:
-    image: postgres:14.9
+    image: postgres:14.12
     restart: always
     ports:
       - 5432:5432
@@ -111,7 +111,7 @@ services:
       start_period: 5s
 
   elasticsearch:
-    image: opensearchproject/opensearch:2.7.0
+    image: opensearchproject/opensearch:2.11.1
     restart: always
     container_name: elasticsearch
     hostname: elasticsearch
