@@ -56,7 +56,7 @@ services:
       interval: 15s
       timeout: 15s
       retries: 10
-      start_period: 240s
+      start_period: 180s
     depends_on:
       redis:
         condition: service_healthy
