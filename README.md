@@ -60,3 +60,8 @@ Then uncomment the following lines in the docker-compose.yml file:
 #      - ./on-premise.crt:/etc/ssl/certs/on-premise.crt
 #      - ./on-premise.key:/etc/ssl/private/on-premise.key
 ```
+
+### Troubleshoting
+
+Error: ```Error response from daemon: Conflict. The container name "/postgres" is already in use by container "cb4ab20b3a0a0bb02d5bb6c4116a62fe945169d02bcb635e61af01c3175dbdce". You have to remove (or rename) that container to be able to reuse that name.```
+Solution: `docker container prune -f`

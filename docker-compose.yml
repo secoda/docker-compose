@@ -42,7 +42,6 @@ services:
     networks:
       - secodanet
     environment:
-      - VITE_NEW_AUTH
       - APISERVICE_SECRET
       - PUBLIC_KEY
       - PRIVATE_KEY
