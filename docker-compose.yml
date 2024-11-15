@@ -19,7 +19,6 @@ services:
       - API_ENDPOINT=api
       - API_PORT=5007
       - API_PROTOCOL=http
-      - FRONTEND_ENDPOINT=127.0.0.1
     networks:
       - secodanet
     healthcheck:
@@ -76,8 +75,6 @@ services:
     container_name: redis
     command: ["redis-server", "--appendonly", "yes"]
     hostname: redis
-    ports:
-      - 6379:6379
     networks:
       - secodanet
     healthcheck:
@@ -115,8 +112,6 @@ services:
     hostname: elasticsearch
     volumes:
       - elasticsearch_data:/usr/share/opensearch/data
-    ports:
-      - 9200:9200
     environment:
       - plugins.security.disabled=true
       - discovery.type=single-node
