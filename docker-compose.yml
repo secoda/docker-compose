@@ -1,7 +1,7 @@
 version: "3"
 services:
   frontend:
-    image: secoda/on-premise-frontend:2025.2.7
+    image: secoda/on-premise-frontend:2025.2.8
     container_name: frontend
     # To use a custom certificate, uncomment the following lines and
     # replace the paths with the paths to your X509 certificate and
@@ -32,7 +32,7 @@ services:
         condition: service_healthy
 
   api:
-    image: secoda/on-premise-api:2025.2.7
+    image: secoda/on-premise-api:2025.2.8
     container_name: api
     restart: always
     ports:
